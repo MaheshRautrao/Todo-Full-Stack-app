@@ -1,9 +1,22 @@
-const Todo = () => {
+import { useState } from "react";
+
+const Todo = ({ task }) => {
+  const [done, setDone] = useState(false);
+
+  const handleCheckBox = (event) => {
+    if (event.target.checked) setDone(true);
+    else setDone(false);
+  };
+
   return (
-    <div className="flex items-center justify-between gap-2 px-5 py-2 border-2 border-black rounded-md dark:border-slate-600 dark:text-white">
+    <div className="flex items-center justify-between gap-2 px-5 py-2 border-2 dark:border-[#5bedc1] dark:border border-black rounded-md dark:border-slate-600 dark:text-white">
       <div className="flex flex-row gap-2 ">
-        <input type="checkbox" className="cursor-pointer" />
-        <div className="">I want to go to market</div>
+        <input
+          type="checkbox"
+          className="cursor-pointer"
+          onChange={handleCheckBox}
+        />
+        <div className={done ? "line-through" : ""}>{task}</div>
       </div>
 
       <div className="flex gap-2 ">
@@ -11,7 +24,7 @@ const Todo = () => {
         <img
           src="delete-icon.png"
           alt="delete"
-          className="w-5 cursor-pointer"
+          className="w-5 cursor-pointer "
         />
       </div>
     </div>
