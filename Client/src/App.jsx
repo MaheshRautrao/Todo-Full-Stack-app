@@ -34,6 +34,9 @@ function App() {
     setTask(event.target.value);
   };
 
+  const handleEnterFromInput = (event) => {
+    if (event.keyCode === 13) createTodo();
+  };
   return (
     <>
       <div className="flex flex-col items-center h-full min-h-screen dark:bg-[#414141]">
@@ -58,6 +61,7 @@ function App() {
                 onChange={handleTaskInput}
                 className="px-2 py-1 text-black dark:text-white dark:border border-2 border-black rounded-md outline-none dark:border-[#5bedc1] dark:bg-black w-60"
                 placeholder="Write your todo"
+                onKeyUp={handleEnterFromInput}
               />
               <button
                 onClick={createTodo}

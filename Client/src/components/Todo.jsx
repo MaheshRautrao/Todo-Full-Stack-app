@@ -16,7 +16,9 @@ const Todo = ({ task }) => {
           className="cursor-pointer"
           onChange={handleCheckBox}
         />
-        <div className={done ? "line-through" : ""}>{task}</div>
+        <div className={done ? " line-through" : ""}>
+          <p className="break-words">{task}</p>
+        </div>
       </div>
 
       <div className="flex gap-2 ">
