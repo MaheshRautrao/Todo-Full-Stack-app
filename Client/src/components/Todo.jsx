@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Todo = ({ task }) => {
+const Todo = ({ todo, id, deleteTodo }) => {
   const [done, setDone] = useState(false);
 
   const handleCheckBox = (event) => {
@@ -17,7 +17,7 @@ const Todo = ({ task }) => {
           onChange={handleCheckBox}
         />
         <div className={done ? " line-through" : ""}>
-          <p className="break-words">{task}</p>
+          <p className="break-words">{todo.task}</p>
         </div>
       </div>
 
@@ -27,6 +27,7 @@ const Todo = ({ task }) => {
           src="delete-icon.png"
           alt="delete"
           className="w-5 cursor-pointer "
+          onClick={() => deleteTodo(id)}
         />
       </div>
     </div>
