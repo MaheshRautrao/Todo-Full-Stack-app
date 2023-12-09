@@ -53,8 +53,6 @@ function App() {
     setTodos(filteredTodos);
   };
 
-  const updateTodo = () => {};
-
   return (
     <>
       <div className="flex flex-col items-center h-full min-h-screen dark:bg-[#414141]">
