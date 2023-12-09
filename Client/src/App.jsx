@@ -53,6 +53,8 @@ function App() {
     setTodos(filteredTodos);
   };
 
+  const updateTodo = () => {};
+
   return (
     <>
       <div className="flex flex-col items-center h-full min-h-screen dark:bg-[#414141]">
@@ -67,7 +69,6 @@ function App() {
             />
             <div className="flex flex-col gap-2">
               {todos.map((todo, ind) => {
-                console.log("i am rendered");
                 return (
                   <Todo
                     key={ind}
