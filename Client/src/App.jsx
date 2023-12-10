@@ -53,6 +53,15 @@ function App() {
     setTodos(filteredTodos);
   };
 
+  const editTodo = (e) => {
+    const parentEle =
+      e.currentTarget.parentNode.parentNode.querySelector(".edit-div");
+    const inputEle = parentEle.childNodes[0];
+    const textEle = parentEle.childNodes[1];
+    textEle.classList.add("hidden");
+    inputEle.classList.remove("hidden");
+  };
+
   return (
     <>
       <div className="flex flex-col items-center h-full min-h-screen dark:bg-[#414141]">
@@ -73,6 +82,7 @@ function App() {
                     id={ind}
                     todo={todo}
                     deleteTodo={deleteTodo}
+                    editTodo={editTodo}
                   />
                 );
               })}

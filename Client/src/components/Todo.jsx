@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Todo = ({ todo, id, deleteTodo }) => {
+const Todo = ({ todo, id, deleteTodo, editTodo }) => {
   const [done, setDone] = useState(false);
 
   const handleCheckBox = (event) => {
@@ -16,13 +16,19 @@ const Todo = ({ todo, id, deleteTodo }) => {
           className="cursor-pointer"
           onChange={handleCheckBox}
         />
-        <div className={done ? " line-through" : ""}>
-          <p className="break-words">{todo.task}</p>
+        <div className={"edit-div" + (done ? " line-through" : "")}>
+          <input type="text hidden" value={todo.task} />
+          <p className="break-words ">{todo.task}</p>
         </div>
       </div>
 
       <div className="flex gap-2 ">
-        <img src="edit-icon.png" alt="edit" className="w-5 cursor-pointer" />
+        <img
+          src="edit-icon.png"
+          alt="edit"
+          className="w-5 cursor-pointer"
+          onClick={(e) => editTodo(e)}
+        />
         <img
           src="delete-icon.png"
           alt="delete"
