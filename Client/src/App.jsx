@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import Todo from "./components/Todo";
+import Todos from "./components/Todos";
 import ThemeBox from "./components/ThemeBox";
-import CreateTodoBox from "./components/CreateTodoBox";
 
 function App() {
   const localTheme = localStorage.theme;
@@ -11,8 +10,6 @@ function App() {
   const [themeImage, setThemeImage] = useState(
     localTheme === "dark" ? "light-mode" : "night-mode"
   );
-  const [todos, setTodos] = useState([]);
-  const [task, setTask] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "dark")
@@ -32,62 +29,12 @@ function App() {
     }
   };
 
-  const createTodo = () => {
-    if (task === "") return;
-    const todo = { task };
-    setTodos((prev) => [...prev, todo]);
-    setTask("");
-  };
-
-  const handleTaskInput = (event) => {
-    setTask(event.target.value);
-  };
-
-  const handleEnterFromInput = (event) => {
-    if (event.keyCode === 13) createTodo();
-  };
-
-  const deleteTodo = (id) => {
-    const filteredTodos = todos.filter((todo, ind) => ind !== id);
-    console.log(filteredTodos);
-    setTodos(filteredTodos);
-  };
-
-  const editTodo = (e) => {
-    const parentEle =
-      e.currentTarget.parentNode.parentNode.querySelector(".edit-div");
-    const inputEle = parentEle.childNodes[0];
-    const textEle = parentEle.childNodes[1];
-    textEle.classList.add("hidden");
-    inputEle.classList.remove("hidden");
-  };
-
   return (
     <>
       <div className="flex flex-col items-center h-full min-h-screen dark:bg-[#414141]">
         <div className="flex flex-col gap-5 p-4 ">
           <ThemeBox themeImage={themeImage} handleTheme={handleTheme} />
-          <div className="flex flex-col gap-3 ">
-            <CreateTodoBox
-              task={task}
-              handleTaskInput={handleTaskInput}
-              handleEnterFromInput={handleEnterFromInput}
-              createTodo={createTodo}
-            />
-            <div className="flex flex-col gap-2">
-              {todos.map((todo, ind) => {
-                return (
-                  <Todo
-                    key={ind}
-                    id={ind}
-                    todo={todo}
-                    deleteTodo={deleteTodo}
-                    editTodo={editTodo}
-                  />
-                );
-              })}
-            </div>
-          </div>
+          <Todos />
         </div>
       </div>
     </>

@@ -1,9 +1,23 @@
-const CreateTodoBox = ({
-  task,
-  handleTaskInput,
-  handleEnterFromInput,
-  createTodo,
-}) => {
+import { useState } from "react";
+
+const CreateTodoBox = ({ setTodos }) => {
+  const [task, setTask] = useState("");
+
+  const createTodo = () => {
+    if (task === "") return;
+    const todo = { task };
+    setTodos((prev) => [...prev, todo]);
+    setTask("");
+  };
+
+  const handleTaskInput = (event) => {
+    setTask(event.target.value);
+  };
+
+  const handleEnterFromInput = (event) => {
+    if (event.keyCode === 13) createTodo();
+  };
+
   return (
     <div className="flex gap-2">
       <input

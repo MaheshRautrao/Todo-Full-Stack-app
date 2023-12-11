@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-const Todo = ({ todo, id, deleteTodo, editTodo }) => {
+const Todo = ({ todo, id, deleteTodo }) => {
   const [done, setDone] = useState(false);
+  const [editedTodoValue, setEditedTodoValue] = useState(todo.task);
+  const [editing, setEditing] = useState(false);
+
+  const inputRef = useRef(null);
+  const pRef = useRef(null);
+
+  const toggleEditTodo = () => {
+    setEditing((editing) => !editing);
+  };
 
   const handleCheckBox = (event) => {
     if (event.target.checked) setDone(true);
     else setDone(false);
+  };
+
+  const handleEditChange = (e) => {
+    setEditedTodoValue(e.target.value);
   };
 
   return (
@@ -16,19 +29,31 @@ const Todo = ({ todo, id, deleteTodo, editTodo }) => {
           className="cursor-pointer"
           onChange={handleCheckBox}
         />
-        <div className={"edit-div" + (done ? " line-through" : "")}>
-          <input type="text hidden" value={todo.task} />
-          <p className="break-words ">{todo.task}</p>
+        <div className={"edit-div" + (done ? " line-through bg-blue-400" : "")}>
+          {editing ? (
+            <input
+              ref={inputRef}
+              type="text"
+              value={editedTodoValue}
+              onChange={(e) => handleEditChange(e)}
+              className="border-2 border-black"
+            />
+          ) : (
+            <p ref={pRef} className="break-words ">
+              {editedTodoValue}
+            </p>
+          )}
         </div>
       </div>
 
       <div className="flex gap-2 ">
         <img
-          src="edit-icon.png"
-          alt="edit"
+          src={editing ? "save-icon.png" : "edit-icon.png"}
+          alt="edit/save icon"
           className="w-5 cursor-pointer"
-          onClick={(e) => editTodo(e)}
+          onClick={toggleEditTodo}
         />
+
         <img
           src="delete-icon.png"
           alt="delete"
