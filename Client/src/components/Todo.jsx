@@ -29,14 +29,14 @@ const Todo = ({ todo, id, deleteTodo }) => {
           className="cursor-pointer"
           onChange={handleCheckBox}
         />
-        <div className={"edit-div" + (done ? " line-through bg-blue-400" : "")}>
+        <div className={"edit-div" + (done ? " line-through" : "")}>
           {editing ? (
             <input
               ref={inputRef}
               type="text"
               value={editedTodoValue}
               onChange={(e) => handleEditChange(e)}
-              className="border-2 border-black"
+              className="border-2 dark:border border-black outline-none rounded-sm dark:border-[#5bedc1] dark:bg-black "
             />
           ) : (
             <p ref={pRef} className="break-words ">
