@@ -5,7 +5,6 @@ import ThemeBox from "./components/ThemeBox";
 
 function App() {
   const localTheme = localStorage.theme;
-
   const [theme, setTheme] = useState(localTheme);
   const [themeImage, setThemeImage] = useState(
     localTheme === "dark" ? "light-mode" : "night-mode"

@@ -2,14 +2,24 @@ import Todo from "./Todo";
 
 const TodosList = ({ todos, setTodos }) => {
   const deleteTodo = (id) => {
-    const filteredTodos = todos.filter((todo, ind) => ind !== id);
+    const filteredTodos = todos.filter((todo) => todo.time !== id);
+    localStorage.setItem("todos", JSON.stringify(filteredTodos));
     setTodos(filteredTodos);
   };
 
   return (
     <div className="flex flex-col gap-2">
-      {todos.map((todo, ind) => {
-        return <Todo key={ind} id={ind} todo={todo} deleteTodo={deleteTodo} />;
+      {todos?.map((todo) => {
+        return (
+          <Todo
+            key={todo.time}
+            todos={todos}
+            setTodos={setTodos}
+            id={todo.time}
+            todo={todo}
+            deleteTodo={deleteTodo}
+          />
+        );
       })}
     </div>
   );

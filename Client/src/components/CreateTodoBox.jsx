@@ -1,13 +1,16 @@
 import { useState } from "react";
 
-const CreateTodoBox = ({ setTodos }) => {
+const CreateTodoBox = ({ todos, setTodos }) => {
   const [task, setTask] = useState("");
 
   const createTodo = () => {
     if (task === "") return;
-    const todo = { task };
-    setTodos((prev) => [...prev, todo]);
+    const todo = { task, time: new Date().getTime() };
+
+    const newTodos = [...todos, todo];
+    localStorage.setItem("todos", JSON.stringify(newTodos));
     setTask("");
+    setTodos(newTodos);
   };
 
   const handleTaskInput = (event) => {

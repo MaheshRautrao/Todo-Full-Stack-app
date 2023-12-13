@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const Todo = ({ todo, id, deleteTodo }) => {
+const Todo = ({ todos, setTodos, id, todo, deleteTodo }) => {
   const [done, setDone] = useState(false);
   const [editedTodoValue, setEditedTodoValue] = useState(todo.task);
   const [editing, setEditing] = useState(false);
@@ -8,7 +8,15 @@ const Todo = ({ todo, id, deleteTodo }) => {
   const inputRef = useRef(null);
   const pRef = useRef(null);
 
-  const toggleEditTodo = () => {
+  const toggleEditTodo = (id) => {
+    if (editing) {
+      const updatedTodos = todos.map((todo) =>
+        todo.time === id ? { ...todo, task: editedTodoValue } : todo
+      );
+
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      setTodos(updatedTodos);
+    }
     setEditing((editing) => !editing);
   };
 
@@ -51,7 +59,7 @@ const Todo = ({ todo, id, deleteTodo }) => {
           src={editing ? "save-icon.png" : "edit-icon.png"}
           alt="edit/save icon"
           className="w-5 cursor-pointer"
-          onClick={toggleEditTodo}
+          onClick={() => toggleEditTodo(id)}
         />
 
         <img
